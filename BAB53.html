@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB53</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>BAB1</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Latihan Kosakata</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    width: 400px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 15px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+  }
+  .result {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .wrong { color: red; }
+  .correct { color: green; }
+  ol { text-align:left; max-height:400px; overflow:auto; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2 id="question"></h2>
+  <input type="text" id="answerInput" placeholder="Tulis jawaban di sini">
+  <br>
+  <button id="nextBtn">Selanjutnya</button>
+</div>
+
+<script>
+let questions = [
+{ soal: "산업 안전", jawaban: "tanda keselamatan industri" },
+{ soal: "불을 끄지 마시오", jawaban: "jangan mematikan api" },
+{ soal: "보건 표지", jawaban: "tanda kesehatan kerja" },
+{ soal: "손을 넣지 마시오", jawaban: "jangan mendekatkan tangan" },
+{ soal: "장애 주의", jawaban: "perhatikan hambatan" },
+{ soal: "금연", jawaban: "dilarang merokok" },
+{ soal: "경고표지", jawaban: "papan tanda peringatan" },
+{ soal: "산업용 차량 접근 금지", jawaban: "dilarang mendekat ke kendaraan kerja" },
+{ soal: "의미", jawaban: "arti" },
+{ soal: "스위치를 바꾸지 마시오", jawaban: "jangan menukar saklar" },
+{ soal: "금지 표지", jawaban: "tanda larangan" },
+{ soal: "휴대용 그라인더", jawaban: "gerinda portabel" },
+{ soal: "일반 경고표지", jawaban: "tanda peringatan umum" },
+{ soal: "승객용", jawaban: "penumpang" },
+{ soal: "바닥면 장애물", jawaban: "hambatan lantai" },
+{ soal: "야외용 신발 금지", jawaban: "dilarang memakai sepatu luar ruangan" },
+{ soal: "전기", jawaban: "listrik" },
+{ soal: "만지지 마시오", jawaban: "jangan menyentuh" },
+{ soal: "감전", jawaban: "kesetrum" },
+{ soal: "기대기 마시오", jawaban: "jangan bersandar" },
+{ soal: "생물학적 위해", jawaban: "bahaya biologis" },
+{ soal: "통로", jawaban: "jalan" },
+{ soal: "세균", jawaban: "kuman" },
+{ soal: "지나가다", jawaban: "melewati" },
+{ soal: "바이러스", jawaban: "virus" },
+{ soal: "그런데", jawaban: "tetapi" },
+{ soal: "유출되다", jawaban: "bocor" },
+{ soal: "넓다", jawaban: "luas, lebar" },
+{ soal: "독성 물질", jawaban: "bahan beracun" },
+{ soal: "익숙해졌어요", jawaban: "telah terbiasa" },
+{ soal: "이온화 방사선", jawaban: "radiasi ion" },
+{ soal: "휴대폰 전원을 끄시오", jawaban: "matikan hp" },
+{ soal: "추락", jawaban: "terjatuh dari atas" },
+{ soal: "물을 마시지 마시오", jawaban: "tidak boleh minum air" },
+{ soal: "미끄러운 표면", jawaban: "permukaan licin" },
+{ soal: "올라가지 마시오", jawaban: "dilarang naik" },
+{ soal: "뜨거운 표면", jawaban: "permukaan panas" },
+{ soal: "밀지 마시오", jawaban: "dilarang mendorong" },
+{ soal: "인화 물질", jawaban: "bahan mudah terbakar" },
+{ soal: "앉지 마시오", jawaban: "dilarang duduk" },
+{ soal: "낙하물", jawaban: "kejatuhan barang" },
+{ soal: "애견 금지", jawaban: "dilarang membawa anjing" },
+{ soal: "취급하다", jawaban: "menangani" },
+{ soal: "식음료 금지", jawaban: "dilarang makan/minum" },
+{ soal: "데다", jawaban: "terbakar" },
+{ soal: "사진 촬영 금지", jawaban: "dilarang memotret" },
+{ soal: "알리다", jawaban: "memberi tahu" },
+{ soal: "달리기 금지", jawaban: "dilarang berlari" },
+{ soal: "상황", jawaban: "kondisi, keadaan" },
+{ soal: "수영 금지", jawaban: "dilarang berenang" },
+{ soal: "위험하다", jawaban: "berbahaya" },
+{ soal: "흔들지 마시오", jawaban: "jangan menggoyangkan" },
+{ soal: "그냥", jawaban: "hanya, saja" },
+{ soal: "임산부 금지", jawaban: "ibu hamil dilarang masuk" },
+{ soal: "예전에", jawaban: "dulu" },
+{ soal: "중독된 사람 금지", jawaban: "orang mabuk dilarang masuk" },
+{ soal: "일반적인 금지 표지", jawaban: "tanda larangan umum" },
+{ soal: "로프에 매듭을 짓지 마시오", jawaban: "jangan membuat simpul pada tali" },
+{ soal: "착화 금지", jawaban: "dilarang menyalakan api" },
+{ soal: "토트랙을 벗어나지 마시오", jawaban: "jangan meninggalkan jejak kaki" },
+{ soal: "화재", jawaban: "kebakaran" },
+{ soal: "발화원 및 발연 금지", jawaban: "dilarang membuat sumber api" },
+{ soal: "취하다", jawaban: "mabuk" },
+{ soal: "통행 금지", jawaban: "dilarang melintas" },
+{ soal: "장갑", jawaban: "sarung tangan" },
+{ soal: "이탈하다 / 도망하다", jawaban: "kabur" },
+{ soal: "승강기", jawaban: "lift (barang)" },
+{ soal: "착용하지 마시오", jawaban: "dilarang memakai" }
+];
+
+// Acak soal
+questions = questions.sort(() => Math.random() - 0.5);
+
+let index = 0;
+let score = 0;
+let userAnswers = [];
+
+const questionEl = document.getElementById("question");
+const answerInput = document.getElementById("answerInput");
+const nextBtn = document.getElementById("nextBtn");
+const card = document.querySelector(".card");
+
+function showQuestion() {
+  questionEl.textContent = "Soal " + (index + 1) + ": " + questions[index].soal;
+  answerInput.value = "";
+  answerInput.focus();
+}
+
+nextBtn.addEventListener("click", () => {
+  const userAnswer = answerInput.value.trim().toLowerCase();
+  userAnswers[index] = userAnswer; // simpan jawaban sesuai index
+
+  if (userAnswer === questions[index].jawaban) {
+    score++;
+  }
+
+  index++;
+  if (index < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+});
+
+function showResult() {
+  let answerList = "";
+  questions.forEach((q, i) => {
+    if (userAnswers[i] === q.jawaban) {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span></li>`;
+    } else {
+      answerList += `<li>${q.soal} = <span class="correct">${q.jawaban}</span><br>
+                     Jawaban kamu: <span class="wrong">${userAnswers[i] || "(kosong)"}</span></li>`;
+    }
+  });
+
+  card.innerHTML = `
+    <h2>Hasil</h2>
+    <p class="result">Nilai: ${score} / ${questions.length}</p>
+    <hr>
+    <p>Kunci Jawaban:</p>
+    <ol>${answerList}</ol>
+  `;
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
